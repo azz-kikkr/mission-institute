@@ -49,10 +49,16 @@
   }
 
   // ---- SCROLL REVEAL ----
-  const reveals = document.querySelectorAll('.anim-reveal');
+  var reveals = document.querySelectorAll('.anim-reveal');
+
+  function showAll() {
+    reveals.forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
 
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
+    var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
@@ -62,19 +68,19 @@
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px',
       }
     );
 
     reveals.forEach(function (el) {
       observer.observe(el);
     });
+
+    // Safety net: if anything is still hidden after 4s, show it
+    setTimeout(showAll, 4000);
   } else {
-    // Fallback: just show everything
-    reveals.forEach(function (el) {
-      el.classList.add('visible');
-    });
+    showAll();
   }
 
   // ---- SMOOTH SCROLL FOR ANCHOR LINKS ----

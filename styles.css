@@ -782,6 +782,14 @@ button {
   transform: translateY(0);
 }
 
+/* Fallback: if JS hasn't run after 3s, show everything */
+@media (prefers-reduced-motion: reduce) {
+  .anim-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Stagger for topic cards */
 .topic-card.visible {
   transition-delay: calc(var(--card-delay, 0) * 0.08s);
